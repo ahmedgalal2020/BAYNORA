@@ -1,0 +1,10 @@
+.baynora-mobile-nav{display:none}
+@media(max-width:767px){
+  body.baynora-theme{padding-bottom:72px}
+  .baynora-mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;height:66px;background:#fff;border-top:1px solid var(--baynora-border);box-shadow:0 -8px 30px rgba(43,45,66,.08);z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+  .baynora-mobile-nav>a,.baynora-mobile-nav>button,.baynora-mobile-nav>div{appearance:none;border:0;background:transparent;color:#6d7283;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;font-size:9px;min-width:0;padding:5px 2px}
+  .baynora-mobile-nav i{font-size:20px;color:var(--baynora-navy)}
+  .baynora-mobile-nav salla-user-menu,.baynora-mobile-nav salla-cart-summary{display:flex;align-items:center;justify-content:center;min-height:24px}
+  .baynora-mobile-nav__user>span,.baynora-mobile-nav__cart>span{font-size:9px}
+  .baynora-footer{padding-bottom:24px}
+}
