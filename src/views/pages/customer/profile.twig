@@ -11,14 +11,18 @@
       <label><span>البريد الإلكتروني</span><input class="baynora-input" type="email" name="email" value="{{ user.email }}" required></label>
       <label><span>رقم الجوال</span><salla-tel-input phone="{{ user.mobile }}"></salla-tel-input></label>
       {% for field in custom_fields %}
-        <label><span>{{ field.label }}</span><input class="baynora-input" type="{{ field.type }}" name="custom_fields[{{ field.id }}]" value="{{ field.value }}" {{ field.required?'required':'' }}></label>
+        <label><span>{{ field.label }}</span>
+          {% if field.type == 'photo' %}
+            <salla-file-upload instant-upload value="{{ field.value }}" url="{{ store.url|trim('/'~user.language_code) }}/upload-image" name="custom_fields[{{ field.id }}]" payload-name="image"></salla-file-upload>
+            <input type="hidden" name="custom_fields[{{ field.id }}]" value="{{ field.value }}">
+          {% else %}
+            <input class="baynora-input" type="{{ field.type }}" name="custom_fields[{{ field.id }}]" value="{{ field.value }}" {{ field.required?'required':'' }}>
+          {% endif %}
+        </label>
       {% endfor %}
     </div>
     <salla-button type="submit" loader-position="end" width="wide">حفظ التغييرات</salla-button>
   </form>
-  <div class="baynora-account-settings">
-    <salla-verify data-testid="store-profile-verify"></salla-verify>
-    <salla-user-settings data-testid="store-profile-settings" {{ user.is_notifiable?'is-notifiable':0 }}></salla-user-settings>
-  </div>
+  <div class="baynora-account-settings"><salla-verify data-testid="store-profile-verify"></salla-verify><salla-user-settings data-testid="store-profile-settings" {{ user.is_notifiable?'is-notifiable':0 }}></salla-user-settings></div>
 </div>
 {% endblock %}
