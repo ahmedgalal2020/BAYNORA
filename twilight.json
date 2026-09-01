@@ -1,0 +1,40 @@
+{
+  "name": {"ar": "باينورا", "en": "BAYNORA"},
+  "repository": "https://github.com/ahmedgalal2020/BAYNORA",
+  "author_email": "ahmedgalal2020@users.noreply.github.com",
+  "features": [
+    "mega-menu",
+    "fonts",
+    "color",
+    "breadcrumb",
+    "unite-cards-height",
+    "component-featured-products",
+    "component-fixed-banner",
+    "component-fixed-products",
+    "component-products-slider",
+    "component-photos-slider",
+    "component-testimonials",
+    "component-store-features",
+    "menu-images",
+    "filters"
+  ],
+  "settings": [
+    {
+      "type": "boolean",
+      "id": "header_is_sticky",
+      "label": "تثبيت الهيدر أثناء التمرير",
+      "format": "switch",
+      "value": true,
+      "selected": true
+    },
+    {
+      "type": "boolean",
+      "id": "footer_is_dark",
+      "label": "تفعيل الفوتر الداكن",
+      "format": "switch",
+      "value": true,
+      "selected": true
+    }
+  ],
+  "components": []
+}
