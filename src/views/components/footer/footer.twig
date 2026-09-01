@@ -1,0 +1,26 @@
+<footer class="baynora-footer" data-testid="store-footer">
+  <div class="baynora-container baynora-footer__grid">
+    <div>
+      <a href="{{ store.url }}" class="baynora-footer__brand">BAYNORA</a>
+      <p>{{ store.description|default('منتجات ذكية وعملية، مختارة بعناية لتجعل تفاصيل حياتك أسهل.')|raw }}</p>
+      <salla-social data-testid="store-footer-social"></salla-social>
+    </div>
+    <div>
+      <h3>روابط مهمة</h3>
+      <salla-menu source="footer" with-cookie-preferences data-testid="store-footer-menu"></salla-menu>
+    </div>
+    <div>
+      <h3>خدمة العملاء</h3>
+      <salla-contacts data-testid="store-footer-contacts"></salla-contacts>
+    </div>
+    <div>
+      <h3>دفع آمن</h3>
+      <salla-payments data-testid="store-footer-payments"></salla-payments>
+      <salla-trust-badges dark data-testid="store-footer-trust-badges"></salla-trust-badges>
+    </div>
+  </div>
+  <div class="baynora-footer__bottom baynora-container">
+    <span>{% hook copyright %}</span>
+    <span>تفاصيل أذكى. حياة أسهل.</span>
+  </div>
+</footer>
