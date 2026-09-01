@@ -1,0 +1,24 @@
+{% extends "layouts.customer" %}
+{% block inner_content %}
+<div class="baynora-account-card">
+  <h2>بيانات الحساب</h2>
+  <form class="baynora-profile-form ajax" onsubmit="return salla.form.onSubmit('profile.update', event)">
+    <div class="baynora-form-grid">
+      <label><span>الاسم الأول</span><input class="baynora-input" type="text" name="first_name" value="{{ user.first_name }}" required></label>
+      <label><span>اسم العائلة</span><input class="baynora-input" type="text" name="last_name" value="{{ user.last_name }}" required></label>
+      <label><span>تاريخ الميلاد</span><salla-datetime-picker dateFormat="Y-m-d" value="{{ user.birthday }}" name="birthday"></salla-datetime-picker></label>
+      <label><span>الجنس</span><select class="baynora-input" name="gender"><option value="">اختر</option><option value="male" {{ user.gender=='male'?'selected':'' }}>ذكر</option><option value="female" {{ user.gender=='female'?'selected':'' }}>أنثى</option></select></label>
+      <label><span>البريد الإلكتروني</span><input class="baynora-input" type="email" name="email" value="{{ user.email }}" required></label>
+      <label><span>رقم الجوال</span><salla-tel-input phone="{{ user.mobile }}"></salla-tel-input></label>
+      {% for field in custom_fields %}
+        <label><span>{{ field.label }}</span><input class="baynora-input" type="{{ field.type }}" name="custom_fields[{{ field.id }}]" value="{{ field.value }}" {{ field.required?'required':'' }}></label>
+      {% endfor %}
+    </div>
+    <salla-button type="submit" loader-position="end" width="wide">حفظ التغييرات</salla-button>
+  </form>
+  <div class="baynora-account-settings">
+    <salla-verify data-testid="store-profile-verify"></salla-verify>
+    <salla-user-settings data-testid="store-profile-settings" {{ user.is_notifiable?'is-notifiable':0 }}></salla-user-settings>
+  </div>
+</div>
+{% endblock %}
