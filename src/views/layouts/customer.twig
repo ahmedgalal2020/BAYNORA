@@ -1,0 +1,24 @@
+{% extends "layouts.master" %}
+{% block content %}
+<section class="baynora-page-head baynora-page-head--simple">
+  <div class="baynora-container">
+    <salla-breadcrumb></salla-breadcrumb>
+    <h1>{{ page.title }}</h1>
+  </div>
+</section>
+<section class="baynora-account">
+  <div class="baynora-container baynora-account__grid">
+    <aside class="baynora-account__sidebar">
+      {% if is_page('customer.profile') %}
+        <div class="baynora-account__avatar">
+          <salla-file-upload profile-image value="{{ user.avatar }}" data-testid="store-profile-avatar-upload"></salla-file-upload>
+        </div>
+      {% endif %}
+      <salla-user-menu inline data-testid="store-sidebar-user-menu"></salla-user-menu>
+    </aside>
+    <div class="baynora-account__content">
+      {% block inner_content %}{% endblock %}
+    </div>
+  </div>
+</section>
+{% endblock %}
