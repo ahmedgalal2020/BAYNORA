@@ -1,6 +1,6 @@
 {
   "name": "baynora-salla-theme",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "BAYNORA custom Salla Twilight theme",
   "license": "UNLICENSED",
   "scripts": {
@@ -19,10 +19,11 @@
     "@salla.sa/twilight": "^2.14.551",
     "@salla.sa/twilight-components": "^2.14.551",
     "autoprefixer": "^10.5.2",
-    "babel-loader": "^10.0.0",
+    "babel-loader": "^10.1.1",
     "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^7.1.4",
     "css-minimizer-webpack-plugin": "^8.0.0",
+    "glob": "^13.0.6",
     "mini-css-extract-plugin": "^2.10.2",
     "postcss": "^8.5.16",
     "postcss-import": "^16.1.1",
