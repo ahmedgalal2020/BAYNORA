@@ -9,7 +9,7 @@ const publicDir = file => path.resolve('public', file || '');
 
 module.exports = {
   entry: {
-    app: [asset('styles/app.scss'), asset('styles/pages.scss'), asset('js/app.js')],
+    app: [asset('styles/app.scss'), asset('styles/pages.scss'), asset('styles/mobile-nav.scss'), asset('js/app.js')],
     home: asset('js/home.js')
   },
   output: {
