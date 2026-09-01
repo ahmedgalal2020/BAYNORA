@@ -1,0 +1,15 @@
+{% extends "layouts.customer" %}
+{% block inner_content %}
+  <div class="baynora-account-card">
+    {% if orders|length %}
+      <salla-orders data-testid="store-orders-list"></salla-orders>
+    {% else %}
+      <div class="baynora-empty-state" data-testid="store-orders-empty">
+        <i class="sicon-packed-box"></i>
+        <h2>لا توجد طلبات حتى الآن</h2>
+        <p>عندما تبدأ التسوق من BAYNORA ستظهر طلباتك هنا.</p>
+        <a class="baynora-btn baynora-btn--primary" href="{{ link('products') }}">ابدأ التسوق</a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
