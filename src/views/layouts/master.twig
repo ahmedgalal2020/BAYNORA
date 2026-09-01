@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ language.code }}" dir="{{ theme.is_rtl ? 'rtl' : 'ltr' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% hook 'head:start' %}
+  {% hook head %}
+  {% block styles %}{% endblock %}
+  <link rel="stylesheet" href="{{ 'app.css' | asset }}">
+  {% if theme.font %}<link rel="stylesheet" href="{{ theme.font.path|cdn }}">{% endif %}
+  <link rel="stylesheet" href="{{ 'fonts/sallaicons.css'|cdn }}">
+  <style>:root{--font-main:'{{ theme.font.name|default('Alexandria') }}';--baynora-navy:#2B2D42;--baynora-gray:#8D99AE;--baynora-gold:#D4AF37;--baynora-light:#EDF2F4;--baynora-white:#FFFFFF;--color-primary:#2B2D42;}</style>
+  {% hook 'head:end' %}
+</head>
+<body id="app" class="baynora-theme {{ theme.settings.get('header_is_sticky', true) ? 'has-sticky-header' : '' }} {% hook 'body:classes' %}">
+  {% hook 'body:start' %}
+  <div class="baynora-app">
+    {% component 'header.header' %}
+    <main id="main-content">{% block content %}{% endblock %}</main>
+    {% component 'footer.footer' %}
+  </div>
+
+  <nav class="baynora-mobile-nav" aria-label="التنقل السريع">
+    <a href="{{ store.url }}"><i class="sicon-home"></i><span>الرئيسية</span></a>
+    <a href="{{ link('products') }}"><i class="sicon-layout-grid"></i><span>المنتجات</span></a>
+    <button type="button" onclick="document.querySelector('salla-search[data-testid=store-search-modal]')?.open()"><i class="sicon-search"></i><span>بحث</span></button>
+    <div class="baynora-mobile-nav__user"><salla-user-menu avatar-only show-trigger></salla-user-menu><span>حسابي</span></div>
+    <div class="baynora-mobile-nav__cart"><salla-cart-summary><i slot="icon" class="sicon-shopping-bag"></i></salla-cart-summary><span>السلة</span></div>
+  </nav>
+
+  {% hook 'body:end' %}
+  <salla-offer-modal data-testid="store-offer-modal"></salla-offer-modal>
+  <salla-search data-testid="store-search-modal"></salla-search>
+  <salla-login-modal data-testid="store-login-modal"></salla-login-modal>
+  {% if store.scope %}<salla-scopes selection="{{ store.scope.display_as == 'popup' ? 'mandatory' : 'optional' }}"></salla-scopes>{% endif %}
+  <script defer src="{{ 'app.js' | asset }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

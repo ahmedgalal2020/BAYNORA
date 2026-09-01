@@ -1,0 +1,37 @@
+{% extends "layouts.master" %}
+
+{% block content %}
+<section class="baynora-hero">
+  <div class="baynora-container baynora-hero__grid">
+    <div class="baynora-hero__content">
+      <span class="baynora-eyebrow">{{ theme.settings.get('hero_eyebrow', 'BAYNORA • باينورا') }}</span>
+      <h1>{{ theme.settings.get('hero_title', 'منتجات ذكية لحياة أسهل كل يوم') }}</h1>
+      <p>{{ theme.settings.get('hero_description', 'اختيارات عملية للمنزل والمطبخ والتنظيم والتنظيف، مختارة بعناية لتوفر وقتك وتخلي يومك أبسط.') }}</p>
+      <div class="baynora-hero__actions">
+        <a class="baynora-btn baynora-btn--primary" href="{{ link('products') }}">{{ theme.settings.get('hero_primary_label', 'تسوق الآن') }}</a>
+        <a class="baynora-btn baynora-btn--ghost" href="#baynora-categories">اكتشف التصنيفات</a>
+      </div>
+      <div class="baynora-hero__proof"><span>✓ منتجات مختارة بعناية</span><span>✓ تجربة شراء موثوقة</span><span>✓ توصيل داخل السعودية</span></div>
+    </div>
+    <div class="baynora-hero__visual" aria-hidden="true"><div class="baynora-visual-card baynora-visual-card--large"><span class="baynora-visual-badge">NEW</span><strong>Smart Living</strong><small>Better details. Easier life.</small></div><div class="baynora-visual-card baynora-visual-card--small">BN</div></div>
+  </div>
+</section>
+
+{% if theme.settings.get('show_trust_strip', true) %}
+<section class="baynora-truststrip"><div class="baynora-container baynora-truststrip__grid"><div><b>شحن موثوق</b><span>داخل المملكة</span></div><div><b>دفع آمن</b><span>خيارات دفع متعددة</span></div><div><b>اختيارات أذكى</b><span>منتجات عملية ومجربة</span></div><div><b>دعم سريع</b><span>نحن هنا لخدمتك</span></div></div></section>
+{% endif %}
+
+<section id="baynora-categories" class="baynora-section baynora-categories"><div class="baynora-container"><div class="baynora-section__head"><div><span>اختياراتنا</span><h2>{{ theme.settings.get('categories_title', 'تسوق حسب احتياجك') }}</h2></div><a href="{{ link('products') }}">كل المنتجات</a></div><div class="baynora-category-grid"><a href="{{ link('products') }}" class="baynora-category-card"><i class="sicon-home"></i><strong>المنزل</strong><span>حلول يومية أذكى</span></a><a href="{{ link('products') }}" class="baynora-category-card"><i class="sicon-cup"></i><strong>المطبخ</strong><span>تحضير وتنظيم أسهل</span></a><a href="{{ link('products') }}" class="baynora-category-card"><i class="sicon-brush"></i><strong>التنظيف</strong><span>أداء عملي وسريع</span></a><a href="{{ link('products') }}" class="baynora-category-card"><i class="sicon-box"></i><strong>التنظيم والتخزين</strong><span>مساحة مرتبة أكثر</span></a><a href="{{ link('products') }}" class="baynora-category-card"><i class="sicon-lightbulb"></i><strong>المنزل الذكي</strong><span>تفاصيل تقنية بسيطة</span></a><a href="{{ link('products') }}" class="baynora-category-card"><i class="sicon-plane"></i><strong>السفر ونمط الحياة</strong><span>منتجات ترافق يومك</span></a></div></div></section>
+
+<section class="baynora-section baynora-products"><div class="baynora-container"><div class="baynora-section__head"><div><span>وصل حديثًا</span><h2>أحدث المنتجات</h2></div><a href="{{ link('products') }}">عرض الكل</a></div><salla-products-list source="latest" data-testid="store-home-latest-products-list"></salla-products-list></div></section>
+
+<section class="baynora-section baynora-why"><div class="baynora-container baynora-why__grid"><div class="baynora-why__image"><span>BAYNORA</span></div><div class="baynora-why__content"><span class="baynora-eyebrow">WHY BAYNORA?</span><h2>{{ theme.settings.get('why_title', 'لأن التفاصيل الصغيرة تصنع فرقًا كبيرًا') }}</h2><p>{{ theme.settings.get('why_description', 'مش بنجمع آلاف المنتجات. بنختار حلول عملية، شكلها جميل واستخدامها فعلاً يضيف قيمة ليومك.') }}</p><ul><li><b>اختيار ذكي:</b> منتجات لها استخدام واضح وفائدة حقيقية.</li><li><b>تصميم عصري:</b> تجربة شراء نظيفة ومريحة من الجوال.</li><li><b>قيمة أفضل:</b> جودة مناسبة بدون مبالغة في السعر.</li><li><b>ثقة مستمرة:</b> متجر نبنيه ليكون علامة تعيش معك لسنوات.</li></ul></div></div></section>
+
+{% if theme.settings.get('show_offer_banner', true) %}<section class="baynora-section baynora-offer"><div class="baynora-container baynora-offer__card"><div><span>عروض BAYNORA</span><h2>{{ theme.settings.get('offer_title', 'اكتشف فرص أفضل لبيتك ويومك') }}</h2><p>{{ theme.settings.get('offer_description', 'تابع أحدث الخصومات والمنتجات المختارة.') }}</p></div><a href="{{ link('products') }}" class="baynora-btn baynora-btn--gold">شاهد العروض</a></div></section>{% endif %}
+
+<section class="baynora-section baynora-products"><div class="baynora-container"><div class="baynora-section__head"><div><span>مختارات باينورا</span><h2>تستحق التجربة</h2></div></div><salla-products-list source="latest" data-testid="store-home-curated-products-list"></salla-products-list></div></section>
+
+{% if theme.settings.get('show_newsletter', true) %}<section class="baynora-newsletter"><div class="baynora-container baynora-newsletter__inner"><div><span>ابقَ قريبًا</span><h2>كل جديد من BAYNORA أولًا</h2><p>عروض ومنتجات ذكية وأفكار تجعل يومك أسهل.</p></div><salla-newsletter></salla-newsletter></div></section>{% endif %}
+{% endblock %}
+
+{% block scripts %}<script defer src="{{ 'home.js' | asset }}"></script>{% endblock %}

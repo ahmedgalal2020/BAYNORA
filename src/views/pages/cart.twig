@@ -1,0 +1,41 @@
+{% extends "layouts.master" %}
+{% block content %}
+<section class="baynora-page-head baynora-page-head--simple"><div class="baynora-container"><salla-breadcrumb></salla-breadcrumb><h1>سلة التسوق</h1></div></section>
+<section class="baynora-cart">
+  <div class="baynora-container baynora-cart__grid">
+    <div class="baynora-cart__items">
+      <salla-conditional-offer data-testid="store-cart-conditional-offer"></salla-conditional-offer>
+      {% for item in cart.items %}
+        <form class="baynora-cart-item" id="item-{{ item.id }}" onchange="salla.form.onChange('cart.updateItem', event)">
+          <input type="hidden" name="id" value="{{ item.id }}">
+          <a class="baynora-cart-item__image" href="{{ item.url }}"><img src="{{ item.product_image }}" alt="{{ item.product_name }}" loading="{{ loop.first ? 'eager' : 'lazy' }}"></a>
+          <div class="baynora-cart-item__body">
+            <a href="{{ item.url }}" class="baynora-cart-item__title">{{ item.product_name }}</a>
+            <div class="baynora-cart-item__price">{{ item.price|money }}</div>
+            {% if item.offer %}<small>{{ item.offer.names }}</small>{% endif %}
+            {% if item.options|default([])|length %}<ul class="baynora-cart-item__options">{% for option in item.options %}<li>{{ option.name }}: {{ option.value }}</li>{% endfor %}</ul>{% endif %}
+            {% if item.can_add_note %}<label class="baynora-cart-note"><span>ملاحظة على المنتج</span><textarea name="notes" rows="2" placeholder="أضف ملاحظتك هنا">{{ item.notes }}</textarea></label>{% endif %}
+            <div class="baynora-cart-item__controls">
+              {% if item.is_hidden_quantity %}<input type="hidden" name="quantity" value="{{ item.quantity }}"><span>{{ item.quantity }}</span>{% else %}<salla-quantity-input cart-item-id="{{ item.id }}" max="{{ item.max_quantity }}" value="{{ item.quantity }}" name="quantity"></salla-quantity-input>{% endif %}
+              <b>{{ item.total|money }}</b>
+            </div>
+          </div>
+          <salla-button type="button" shape="icon" color="danger" aria-label="حذف" onclick="salla.cart.deleteItem('{{ item.id }}').then(() => document.querySelector('#item-{{ item.id }}').remove())"><i class="sicon-cancel"></i></salla-button>
+        </form>
+      {% else %}
+        <div class="baynora-empty-state" data-testid="store-cart-empty"><i class="sicon-shopping-bag"></i><h2>السلة فاضية</h2><p>ابدأ باكتشاف منتجات BAYNORA الذكية والعملية.</p><a href="{{ link('products') }}" class="baynora-btn baynora-btn--primary">تسوق الآن</a></div>
+      {% endfor %}
+      {% if cart.items|length %}<salla-offer data-testid="store-cart-offer"></salla-offer>{% endif %}
+    </div>
+    {% if cart.items|length %}
+      <aside class="baynora-cart__summary">
+        {% if cart.free_shipping_bar %}<div class="baynora-shipping-progress"><b>الشحن المجاني</b><p>{{ cart.free_shipping_bar.has_free_shipping ? 'تم تفعيل الشحن المجاني 🎉' : 'أضف منتجات أكثر للوصول للشحن المجاني' }}</p><div><span style="width:{{ cart.free_shipping_bar.percent }}%"></span></div></div>{% endif %}
+        {% if store.settings.tax.taxable_prices_enabled %}<div class="baynora-tax-note"><i class="sicon-check-circle"></i><span>الأسعار المعروضة تشمل ضريبة القيمة المضافة.</span></div>{% endif %}
+        {% if store.settings.cart.apply_coupon_enabled %}<salla-cart-coupons data-testid="store-cart-coupons"></salla-cart-coupons>{% endif %}
+        <salla-cart-summary-card data-testid="store-cart-summary"></salla-cart-summary-card>
+        <salla-tiered-offer data-testid="store-cart-tiered-offer"></salla-tiered-offer>
+      </aside>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

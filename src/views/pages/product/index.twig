@@ -1,0 +1,32 @@
+{% extends "layouts.master" %}
+{% block content %}
+<section class="baynora-page-head">
+  <div class="baynora-container">
+    <salla-breadcrumb></salla-breadcrumb>
+    <h1>{{ page.title|raw }}</h1>
+    {% if category and category.description %}<div class="baynora-page-head__desc">{{ category.description|raw }}</div>{% endif %}
+  </div>
+</section>
+
+<section class="baynora-catalog">
+  <div class="baynora-container baynora-catalog__layout">
+    {% if filters %}
+      <aside class="baynora-catalog__filters">
+        <h3>تصفية المنتجات</h3>
+        <salla-filters data-testid="store-products-filters" id="filters-menu"></salla-filters>
+      </aside>
+    {% endif %}
+    <div class="baynora-catalog__products">
+      {% if sort_options|length %}
+        <div class="baynora-catalog__toolbar">
+          <span>اختر ما يناسبك</span>
+          <select id="product-filter" class="baynora-select" onchange="location.href='?sort='+this.value">
+            {% for sort in sort_options %}<option value="{{ sort.id }}" {{ sort.is_selected ? 'selected' : '' }}>{{ sort.name }}</option>{% endfor %}
+          </select>
+        </div>
+      {% endif %}
+      <salla-products-list data-testid="store-products-list" source="{{ page.slug }}" source-value="{{ page.id }}" {{ filters ? 'filters-results' : '' }}></salla-products-list>
+    </div>
+  </div>
+</section>
+{% endblock %}

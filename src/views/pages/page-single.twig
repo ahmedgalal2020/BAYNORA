@@ -1,0 +1,14 @@
+{% extends "layouts.master" %}
+{% block content %}
+<section class="baynora-page-head baynora-page-head--simple">
+  <div class="baynora-container">
+    <salla-breadcrumb></salla-breadcrumb>
+    <h1>{{ page.title|raw }}</h1>
+  </div>
+</section>
+<section class="baynora-content-page">
+  <div class="baynora-container">
+    <article class="baynora-content-card">{{ page.content|raw }}</article>
+  </div>
+</section>
+{% endblock %}

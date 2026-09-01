@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "theme_name": "BAYNORA",
+  "repo_url": "https://github.com/ahmedgalal2020/BAYNORA",
+  "support_url": "https://github.com/ahmedgalal2020/BAYNORA/issues",
+  "name": {"ar": "باينورا", "en": "BAYNORA"},
+  "repository": "https://github.com/ahmedgalal2020/BAYNORA",
+  "author_email": "ahmedgalal2020@users.noreply.github.com",
+  "features": [
+    "mega-menu",
+    "fonts",
+    "color",
+    "breadcrumb",
+    "unite-cards-height",
+    "component-featured-products",
+    "component-fixed-banner",
+    "component-fixed-products",
+    "component-products-slider",
+    "component-photos-slider",
+    "component-testimonials",
+    "component-store-features",
+    "menu-images",
+    "filters"
+  ],
+  "settings": [
+    {"type":"boolean","id":"header_is_sticky","label":"تثبيت الهيدر أثناء التمرير","format":"switch","selected":true},
+    {"type":"boolean","id":"footer_is_dark","label":"تفعيل الفوتر الداكن","format":"switch","selected":true},
+    {"type":"boolean","id":"show_trust_strip","label":"إظهار شريط مزايا المتجر","format":"switch","selected":true},
+    {"type":"string","id":"hero_eyebrow","label":"النص الصغير في الواجهة","format":"text","multilanguage":true,"value":"BAYNORA • باينورا"},
+    {"type":"string","id":"hero_title","label":"عنوان الواجهة الرئيسية","format":"text","multilanguage":true,"value":"منتجات ذكية لحياة أسهل كل يوم"},
+    {"type":"string","id":"hero_description","label":"وصف الواجهة الرئيسية","format":"textarea","multilanguage":true,"value":"اختيارات عملية للمنزل والمطبخ والتنظيم والتنظيف، مختارة بعناية لتوفر وقتك وتخلي يومك أبسط."},
+    {"type":"string","id":"hero_primary_label","label":"نص زر التسوق","format":"text","multilanguage":true,"value":"تسوق الآن"},
+    {"type":"string","id":"categories_title","label":"عنوان قسم التصنيفات","format":"text","multilanguage":true,"value":"تسوق حسب احتياجك"},
+    {"type":"string","id":"why_title","label":"عنوان لماذا باينورا","format":"text","multilanguage":true,"value":"لأن التفاصيل الصغيرة تصنع فرقًا كبيرًا"},
+    {"type":"string","id":"why_description","label":"وصف لماذا باينورا","format":"textarea","multilanguage":true,"value":"مش بنجمع آلاف المنتجات. بنختار حلول عملية، شكلها جميل واستخدامها فعلاً يضيف قيمة ليومك."},
+    {"type":"boolean","id":"show_offer_banner","label":"إظهار بانر العروض","format":"switch","selected":true},
+    {"type":"string","id":"offer_title","label":"عنوان بانر العروض","format":"text","multilanguage":true,"value":"اكتشف فرص أفضل لبيتك ويومك"},
+    {"type":"string","id":"offer_description","label":"وصف بانر العروض","format":"textarea","multilanguage":true,"value":"تابع أحدث الخصومات والمنتجات المختارة."},
+    {"type":"boolean","id":"show_newsletter","label":"إظهار الاشتراك في النشرة البريدية","format":"switch","selected":true}
+  ],
+  "components": []
+}

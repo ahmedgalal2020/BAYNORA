@@ -1,0 +1,11 @@
+{% extends "layouts.customer" %}
+{% block inner_content %}
+<div class="baynora-order-card">
+  <div class="baynora-order-head"><div><span>طلب #{{ order.reference_id }}</span><h2>{{ order.status.name }}</h2><small>{{ order.created_at|date }}</small></div><div class="baynora-order-actions">{% if order.payment_url %}<a class="baynora-btn baynora-btn--primary" href="{{ order.payment_url }}">إكمال الدفع</a>{% endif %}{% if order.cancel_url and order.can_cancel %}<a class="baynora-btn baynora-btn--ghost" href="{{ order.cancel_url }}">إلغاء الطلب</a>{% endif %}</div></div>
+  {% if order.is_pickable %}<salla-order-branch data-testid="store-order-branch" stack-cards></salla-order-branch>{% endif %}
+  {% if order.shipments|default([])|length %}<salla-order-shipments></salla-order-shipments>{% endif %}
+  <div class="baynora-order-items">{% for item in order.items %}<article class="baynora-order-item">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.name }}">{% else %}<div class="baynora-order-item__placeholder"><i class="sicon-box"></i></div>{% endif %}<div><h3>{{ item.name }}</h3><p>الكمية: {{ item.quantity }}</p>{% if item.options|default([])|length %}<ul>{% for option in item.options %}<li>{{ option.name }}: {{ option.value }}</li>{% endfor %}</ul>{% endif %}</div><strong>{{ item.total|money }}</strong></article>{% endfor %}</div>
+  <div class="baynora-order-summary"><div><span>المجموع الفرعي</span><b>{{ order.sub_total|money }}</b></div>{% if order.shipping and order.shipping.cost %}<div><span>الشحن</span><b>{{ order.shipping.cost|money }}</b></div>{% endif %}{% if order.tax and order.tax.amount %}<div><span>الضريبة</span><b>{{ order.tax.amount|money }}</b></div>{% endif %}<div class="baynora-order-total"><span>الإجمالي</span><b>{{ order.total|money }}</b></div></div>
+  {% if order.links|default([])|length %}<div class="baynora-order-links">{% for item in order.links %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.label }}</a>{% endfor %}</div>{% endif %}
+</div>
+{% endblock %}

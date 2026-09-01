@@ -1,0 +1,37 @@
+<header class="baynora-header" data-testid="store-header">
+  <div class="baynora-topbar">
+    <div class="baynora-container baynora-topbar__inner">
+      <span>شحن موثوق داخل المملكة</span>
+      <span>تفاصيل أذكى. حياة أسهل.</span>
+    </div>
+  </div>
+
+  <div class="baynora-header__main">
+    <div class="baynora-container baynora-header__row">
+      <a href="{{ store.url }}" class="baynora-logo" aria-label="{{ store.name }}">
+        {% if store.logo %}
+          <img src="{{ store.logo|cdn(220) }}" alt="{{ store.name }}">
+        {% else %}
+          <span class="baynora-logo__word">BAYNORA</span>
+        {% endif %}
+      </a>
+
+      <div class="baynora-search">
+        <salla-search inline oval height="44" data-testid="store-header-search"></salla-search>
+      </div>
+
+      <div class="baynora-header__actions">
+        <salla-user-menu avatar-only show-header show-trigger data-testid="store-header-user-menu"></salla-user-menu>
+        <salla-cart-summary data-testid="store-header-cart">
+          <i slot="icon" class="sicon-shopping-bag"></i>
+        </salla-cart-summary>
+      </div>
+    </div>
+  </div>
+
+  <nav class="baynora-nav" aria-label="التصنيفات الرئيسية">
+    <div class="baynora-container baynora-nav__inner">
+      <custom-main-menu></custom-main-menu>
+    </div>
+  </nav>
+</header>

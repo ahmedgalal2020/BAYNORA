@@ -1,0 +1,23 @@
+{% extends "layouts.master" %}
+{% block content %}
+<section class="baynora-thankyou">
+  <div class="baynora-container">
+    <salla-breadcrumb></salla-breadcrumb>
+    <div class="baynora-thankyou__card">
+      <div class="baynora-thankyou__icon"><i class="sicon-check-circle"></i></div>
+      <span>تم استلام طلبك</span>
+      <h1 data-testid="store-thankyou-title">{{ thank_you_title|default('شكرًا لك!') }}</h1>
+      <p>طلبك الآن عندنا وسنبدأ بتجهيزه. رقم الطلب: <strong>#{{ order.reference_id }}</strong></p>
+      {% if order.instructions %}<div class="baynora-thankyou__message">{{ order.instructions|raw }}</div>{% endif %}
+      {% for message in messages %}<div class="baynora-thankyou__message">{{ message }}</div>{% endfor %}
+      <div class="baynora-thankyou__actions">
+        <salla-button data-testid="store-thankyou-order-details-btn" onclick="salla.order.show({order_id:'{{ order.id }}', url:'{{ order.url }}'})">تفاصيل الطلب</salla-button>
+        <a class="baynora-btn baynora-btn--ghost" href="{{ link('products') }}">متابعة التسوق</a>
+      </div>
+    </div>
+    <salla-order-shipments></salla-order-shipments>
+    <salla-next-order-coupon data-testid="store-thankyou-coupon"></salla-next-order-coupon>
+    {% if order.is_pickable %}<salla-order-branch data-testid="store-thankyou-branch"></salla-order-branch>{% endif %}
+  </div>
+</section>
+{% endblock %}

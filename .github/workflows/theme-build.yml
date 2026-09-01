@@ -1,0 +1,73 @@
+name: Validate BAYNORA Theme
+
+on:
+  push:
+    branches: [main, baynora-master-design]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.18.0'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Validate theme manifest
+        run: |
+          node - <<'NODE'
+          const f = require('./twilight.json');
+          const required = ['version','theme_name','repo_url','settings','features'];
+          const missing = required.filter(k => !f[k]);
+          if (missing.length) throw new Error(`Missing twilight.json fields: ${missing.join(', ')}`);
+          if (!Array.isArray(f.settings) || !Array.isArray(f.features)) throw new Error('Invalid settings/features');
+          console.log('twilight.json OK');
+          NODE
+
+      - name: Verify required Twilight routes
+        run: |
+          required=(
+            src/views/layouts/master.twig
+            src/views/layouts/customer.twig
+            src/views/pages/index.twig
+            src/views/pages/cart.twig
+            src/views/pages/page-single.twig
+            src/views/pages/product/index.twig
+            src/views/pages/product/single.twig
+            src/views/pages/customer/profile.twig
+            src/views/pages/customer/wishlist.twig
+            src/views/pages/customer/orders/index.twig
+            src/views/pages/customer/orders/single.twig
+            src/views/pages/blog/index.twig
+            src/views/pages/blog/single.twig
+            src/views/pages/brands/index.twig
+            src/views/pages/testimonials.twig
+            src/views/pages/loyalty.twig
+            src/views/pages/thank-you.twig
+          )
+          for f in "${required[@]}"; do test -f "$f" || { echo "Missing $f"; exit 1; }; done
+          grep -q "cart.addItem" src/views/pages/product/single.twig
+          grep -q "salla-cart-summary-card" src/views/pages/cart.twig
+          ! grep -R 'type="photo"' src/views
+
+      - name: Build Twilight theme
+        run: npm run production
+
+      - name: Verify build artifacts
+        run: |
+          test -f public/app.css
+          test -f public/app.js
+          test -f public/home.js
+          test -s public/app.css
+          test -s public/app.js
+          echo "Built asset size:"
+          du -sh public
+          test "$(du -sk public | cut -f1)" -lt 2048

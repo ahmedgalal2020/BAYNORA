@@ -1,0 +1,73 @@
+{% extends "layouts.master" %}
+{% block content %}
+<section class="baynora-product-page" id="product-{{ product.id }}">
+  <div class="baynora-container">
+    <div class="baynora-product-page__crumb"><salla-breadcrumb></salla-breadcrumb></div>
+    <div class="baynora-product-page__grid">
+      <div class="baynora-product-gallery">
+        <salla-slider id="details-slider-{{ product.id }}" type="thumbs" loop="false" auto-height show-thumbs-controls="false" data-testid="store-product-image-slider">
+          <div slot="items">
+            {% for image in product.images %}
+              <a class="swiper-slide baynora-product-gallery__slide" href="{{ image.url }}" aria-label="{{ product.name }}">
+                <img src="{{ image.url }}" alt="{{ image.alt|default(product.name) }}" loading="{{ loop.first ? 'eager' : 'lazy' }}">
+              </a>
+            {% else %}
+              <div class="swiper-slide baynora-product-gallery__slide"><img src="{{ product.image.url }}" alt="{{ product.name }}"></div>
+            {% endfor %}
+          </div>
+          {% if product.images|length > 1 %}<div slot="thumbs">{% for image in product.images %}<div><img src="{{ image.url }}" alt="{{ image.alt|default(product.name) }}"></div>{% endfor %}</div>{% endif %}
+        </salla-slider>
+      </div>
+
+      <div class="baynora-product-info">
+        {% if product.brand.name %}<a href="{{ product.brand.url }}" class="baynora-product-brand">{{ product.brand.name }}</a>{% endif %}
+        <h1 data-testid="store-product-title">{{ product.name }}</h1>
+        {% if product.subtitle %}<p class="baynora-product-subtitle">{{ product.subtitle }}</p>{% endif %}
+        {% if product.rating %}<salla-rating-stars value="{{ product.rating.stars }}" reviews="{{ product.rating.count }}"></salla-rating-stars>{% endif %}
+        {% if product.is_taxable %}<small>السعر شامل الضريبة</small>{% endif %}
+
+        <div class="baynora-product-price" data-testid="store-product-price">
+          {% if product.is_on_sale %}<strong>{{ product.sale_price|money }}</strong><del>{{ product.regular_price|money }}</del>{% if product.discount_percentage %}<span>{{ product.discount_percentage }}</span>{% endif %}
+          {% else %}<strong>{{ product.starting_price ? product.starting_price|money : product.price|money }}</strong>{% endif %}
+        </div>
+
+        {% if product.description %}<div class="baynora-product-description" data-testid="store-product-description">{{ product.description|raw }}</div>{% endif %}
+
+        <form data-testid="store-product-form" class="form product-form" enctype="multipart/form-data" method="post" onsubmit="return salla.form.onSubmit('cart.addItem', event)">
+          <input type="hidden" name="id" value="{{ product.id }}">
+          {% if product.options|length %}<div class="baynora-product-options"><salla-product-options data-testid="store-product-options" options="{{ product.options }}" product-id="{{ product.id }}"></salla-product-options></div>{% endif %}
+          <div class="baynora-buybox">
+            {% if not product.is_hidden_quantity %}<salla-quantity-input product-id="{{ product.id }}" max="{{ product.max_quantity }}" value="1" name="quantity"></salla-quantity-input>{% else %}<input type="hidden" name="quantity" value="1">{% endif %}
+            <salla-add-product-button
+              data-testid="store-product-add-to-cart"
+              {{ product.can_quick_buy ? 'quick-buy' : '' }}
+              {{ product.is_require_shipping ? 'required-shipping' : '' }}
+              amount="{{ product.base_currency_price }}"
+              width="wide"
+              product-id="{{ product.id }}"
+              product-status="{{ product.status }}"
+              product-type="{{ product.type }}"
+              loader-position="end"
+              type="submit"
+              {% if product.notify_availability %}
+                {{ product.notify_availability.subscribed ? 'is-subscribed' : '' }}
+                channels="{{ product.notify_availability.channels|join(',') }}"
+                subscribed-options="{{ product.notify_availability.subscribed_options|json_encode }}"
+                {{ product.notify_availability.options ? 'notify-options-availability' : '' }}
+              {% endif %}>
+              {{ product.add_to_cart_label }}
+            </salla-add-product-button>
+          </div>
+        </form>
+
+        {% if product.is_giftable %}<salla-gifting class="mt-5" product-id="{{ product.id }}" {{ product.is_require_shipping ? 'physical-products' : '' }}></salla-gifting>{% endif %}
+        <salla-quick-order class="mt-5 block"></salla-quick-order>
+        <div class="baynora-product-trust"><div><i class="sicon-shipping-fast"></i><span><b>توصيل موثوق</b><small>داخل المملكة العربية السعودية</small></span></div><div><i class="sicon-security"></i><span><b>دفع آمن</b><small>خيارات دفع موثوقة عبر سلة</small></span></div></div>
+        <salla-social-share data-testid="store-product-social-share"></salla-social-share>
+      </div>
+    </div>
+    <salla-offer data-testid="store-product-offer"></salla-offer>
+  </div>
+</section>
+<section class="baynora-section"><div class="baynora-container"><div class="baynora-section__head"><div><span>قد يعجبك أيضًا</span><h2>منتجات مشابهة</h2></div></div><salla-products-slider source="related" source-value="{{ product.id }}" display-all-url></salla-products-slider></div></section>
+{% endblock %}
