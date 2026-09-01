@@ -9,7 +9,7 @@ const publicDir = file => path.resolve('public', file || '');
 
 module.exports = {
   entry: {
-    app: [asset('styles/app.scss'), asset('js/app.js')],
+    app: [asset('styles/app.scss'), asset('styles/pages.scss'), asset('js/app.js')],
     home: asset('js/home.js')
   },
   output: {
@@ -44,7 +44,7 @@ module.exports = {
   },
   plugins: [
     new ThemeWatcher(),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
     new CopyPlugin({ patterns: [{ from: asset('images'), to: publicDir('images'), noErrorOnMissing: true }] })
   ],
   optimization: {
