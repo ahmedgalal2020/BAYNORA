@@ -9,7 +9,7 @@ const publicDir = file => path.resolve('public', file || '');
 
 module.exports = {
   entry: {
-    app: [asset('styles/app.scss'), asset('styles/pages.scss'), asset('styles/mobile-nav.scss'), asset('js/app.js')],
+    app: [asset('styles/app.scss'), asset('styles/pages.scss'), asset('styles/mobile-nav.scss'), asset('styles/commerce-enhancements.scss'), asset('js/app.js')],
     home: asset('js/home.js')
   },
   output: {
@@ -20,26 +20,8 @@ module.exports = {
   stats: { modules: false, assetsSort: 'size', assetsSpace: 50 },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime']
-          }
-        }
-      },
-      {
-        test: /\.(s(a|c)ss)$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { url: false } },
-          'postcss-loader',
-          'sass-loader'
-        ]
-      }
+      {test: /\.js$/,exclude: /(node_modules)/,use: {loader: 'babel-loader',options: {presets: ['@babel/preset-env'],plugins: ['@babel/plugin-transform-runtime']}}},
+      {test: /\.(s(a|c)ss)$/,use: [MiniCssExtractPlugin.loader,{ loader: 'css-loader', options: { url: false } },'postcss-loader','sass-loader']}
     ]
   },
   plugins: [
@@ -47,7 +29,5 @@ module.exports = {
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     new CopyPlugin({ patterns: [{ from: asset('images'), to: publicDir('images'), noErrorOnMissing: true }] })
   ],
-  optimization: {
-    minimizer: ['...', new CssMinimizerPlugin()]
-  }
+  optimization: {minimizer: ['...', new CssMinimizerPlugin()]}
 };
